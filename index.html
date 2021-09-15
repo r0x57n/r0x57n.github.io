@@ -1,9 +1,77 @@
 <html>
     <head>
         <title>0x57</title>
+        <style>
+            /*
+             * Colors https://www.schemecolor.com/pastel-blue-wedding-theme.php
+             */
+
+            :root {
+                --main-bg-color: #87AACC;
+                --links-box-bg-color: #AFC7D2;
+                --links-text-color: #779ECC;
+            }
+
+            body {
+                background-color: var(--main-bg-color);
+                color: #E9DFC0;
+            }
+
+            .container {
+                text-align: center;
+            }
+
+            .header {
+                font-size: 40px;
+                -webkit-text-stroke-width: 1px;
+                -webkit-text-stroke-color: var(--header-color);
+                -webkit-text-fill-color: var(--main-bg-color);
+
+                padding-bottom: 0px;
+            }
+
+            .links {
+                padding-bottom: 25px;
+            }
+
+            .links a {
+                background: var(--links-box-bg-color);
+                border-radius: 15px;
+
+                font-size: 30px;
+                color: var(--links-text-color);
+                text-decoration: underline;
+
+                padding: 10px;
+                padding-bottom: 8px;
+                padding-top: 8px;
+                margin-left: 5px;
+            }
+
+            .links a:hover {
+                text-decoration: none;
+            }
+
+            .text {
+                padding-top: 25px;
+                font-size: 20px;
+            }
+        </style>
     </head>
     <body>
-        <a href="https://github.com/r0x57n">github</a>
-        <a href="https://hackaday.io/r0x57n">hackaday</a>
+        <div class="container">
+            <div class="header">
+                <h1>0x57</h1>
+            </div>
+
+            <div class="links">
+                <a href="https://github.com/r0x57n">github</a>
+                <a href="https://hackaday.io/r0x57n">hackaday</a>
+            </div>
+
+            <div class="text">
+                A student doing stuff.
+            </div>
+        </div>
     </body>
 </html>
