@@ -1,3 +1,5 @@
 * Github pages
+This is where I store my website. It's hosted with [[https://pages.github.com/][github pages]], [[https://jekyllrb.com/][jekyll]] and uses the [[https://github.com/piharpi/jekyll-klise][klise]] theme (modified).
 
-To add info.
+** Start a local version
+From root folder, run ~docker compose up~. Once started you can reach the website on [[http://localhost:4000][localhost:4000]].
