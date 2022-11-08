@@ -29,6 +29,10 @@ permalink: /:title/
 google_analytics: # leave it blank if not wish
 fb_appid:
 
+# Icon styling
+icon_width: 40
+icon_height: 40
+
 # Collection setting
 collections:
   posts:

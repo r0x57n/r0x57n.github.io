@@ -378,3 +378,18 @@
     background-color: rgba(128, 128, 128, 0.1);
   }
 }
+
+#social-icons {
+  padding-top: 50px;
+}
+
+#social-icons a:link {
+  text-decoration: none;
+  margin: 5px;
+}
+
+#social-icons svg {
+  fill: white;
+  background: black;
+  border-radius: 100%;
+}
