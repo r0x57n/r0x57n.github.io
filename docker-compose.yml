@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  jekyll:
+    build: .
+    image: "0x57/jekyll"
+    volumes:
+      - ./docs/:/docs/
+    ports:
+      - "4000:4000"
