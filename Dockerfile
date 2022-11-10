@@ -3,7 +3,7 @@ FROM ruby:latest
 RUN gem install jekyll && \
     gem install minima
 
-COPY ./docs /docs
+COPY ./docs/Gemfile /docs/Gemfile
 WORKDIR /docs
 RUN bundle install
 
