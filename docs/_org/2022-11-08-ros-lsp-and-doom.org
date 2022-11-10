@@ -1,0 +1,99 @@
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_EXPORT html
+---
+title: Doom, ROS2 and lsp-docker
+date: 2022-11-10 21:00:00 +01:00
+modified:
+tags: [emacs, lsp, docker, doom, ros2, ros, lsp-docker]
+description: How to get lsp-docker running with doom emacs for ROS projects.
+image: example.png
+---
+#+END_EXPORT
+
+While going through a [[https://www.udemy.com/course/ros2-for-beginners/][udemy course]] for [[https://www.ros.org/][ROS2]] I realized that installing ROS on Arch wasn't as easy as a ~yay~ away, more about that in another post. Here I'll explain how I use [[https://github.com/emacs-lsp/lsp-docker][lsp-docker]] to get a docker container with the ROS2 libraries installed which can run a LSP server for doom emacs. This way I can get proper LSP support even though I don't have the libraries installed on my computer.
+
+* How?
+First we need to tell doom to install the package we're about to use.
+
+#+CAPTION: ~/.doom.d/packages.el
+#+begin_src emacs-lisp
+...
+(package! lsp-docker)
+...
+#+end_src
+
+We then tell doom to let the package take over when it comes to starting a LSP server. But only for specific languages, Python and C++. And only while beneath a specific path.
+
+#+CAPTION: ~/.doom.d/config.el
+#+begin_src emacs-lisp
+...
+(use-package! lsp-docker
+  :config
+   ; For which LSP clients do we want to hijack the server starting?
+   (defvar lsp-docker-client-packages
+    '(lsp-clients lsp-pylsp lsp-clangd))
+
+   ; The settings for this hijacking
+   (setq lsp-docker-client-configs
+    '((:server-id clangd
+       :docker-server-id clangd-docker
+       :server-command "ccls"
+       :docker-image-id  "0x57/ccls-ros-lsp"
+       :docker-container-name "0x57-cpp-ros-lsp")
+      (:server-id pylsp
+       :docker-server-id pylsp-docker
+       :server-command "pylsp"
+       :docker-image-id "0x57/pylsp-ros-lsp"
+       :docker-container-name "0x57-py-ros-lsp")))
+
+   ; Initalize above
+   (lsp-docker-init-clients
+    :path-mappings '(("/home/USER/dev/docker-projs" . "/projects"))
+    :client-packages lsp-docker-client-packages
+    :client-configs lsp-docker-client-configs))
+...
+#+end_src
+
+We're using custom docker images which is why we specify ~:docker-image-id~. We do this since they need to contain ROS and other related libraries (otherwise LSP wouldn't be able to find them). These images have to be pulled first with ~docker pull 0x57/ccls-ros-lsp~ for the package to be able to start them. See listing [[dockerfile-ccls]] and [[dockerfile-pylsp]] for the images setup. We're naming the containers since it's demanded by the package. ~:path-mappings~ doesn't seem to indicate what folder to mount to the container. Instead it tells the package to try and hijack the starting of the LSP server for all projects beneath this path. It then mounts the project's path to ~/projects~ inside of the container.
+
+
+With this done you should be able to open a C++/Python file beneath ~/home/USER/dev/docker-projs~ and the package should start a container with the specified LSP server. You can check if the container shows up with ~docker container ps~.
+
+* The dockerfiles
+The image used by the docker container that start LSP for C++ is shown below.
+
+#+NAME: dockerfile-ccls
+#+CAPTION: Dockerfile for image "0x57/ccls-ros-lsp"
+#+begin_src dockerfile
+FROM ros:foxy
+
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y ccls \
+      ros-${ROS_DISTRO}-demo-nodes-cpp
+#+end_src
+
+Every concievable thing related to ROS2 foxy won't be installed from this. As time moves on you might find yourself with a missing library, and thus have to extend the dockerfile. A bit more has to be done for the Python LSP server, but not that much.
+
+#+NAME: dockerfile-pylsp
+#+CAPTION: Dockerfile for image "0x57/pylsp-ros-lsp"
+#+begin_src dockerfile
+FROM ros:foxy
+
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y python3-pip git
+
+RUN mkdir -p rclpy_ws/src
+WORKDIR rclpy_ws/src
+RUN git clone https://github.com/ros2/rclpy.git
+WORKDIR rclpy_ws
+RUN colcon build --symlink-install
+
+RUN pip install python-lsp-server
+#+end_src
+
+Both images will be updated to work with the udemy course. So if you're following that, you might not have to update these dockerfiles and can just pull the ones I've already built.

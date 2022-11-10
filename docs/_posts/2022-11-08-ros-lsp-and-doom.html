@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US"><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" hreflang="en-US" /><updated>2022-11-10T21:36:18+01:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">0x57</title><subtitle>Personal website.</subtitle><author><name>Rasmus Wallin</name><email>contact@0x57.me</email></author><entry><title type="html">Doom, ROS2 and lsp-docker</title><link href="http://0.0.0.0:4000/ros-lsp-and-doom/" rel="alternate" type="text/html" title="Doom, ROS2 and lsp-docker" /><published>2022-11-10T21:00:00+01:00</published><updated>2022-11-10T21:00:00+01:00</updated><id>http://0.0.0.0:4000/ros-lsp-and-doom</id><content type="html" xml:base="http://0.0.0.0:4000/ros-lsp-and-doom/"><![CDATA[<p>
+---
+title: Doom, ROS2 and lsp-docker
+date: 2022-11-10 21:00:00 +01:00
+modified:
+tags: [emacs, lsp, docker, doom, ros2, ros, lsp-docker]
+description: How to get lsp-docker running with doom emacs for ROS projects.
+image: example.png
+---
+
+<p>
 While going through a <a href="https://www.udemy.com/course/ros2-for-beginners/">udemy course</a> for <a href="https://www.ros.org/">ROS2</a> I realized that installing ROS on Arch wasn&rsquo;t as easy as a <code>yay</code> away, more about that in another post. Here I&rsquo;ll explain how I use <a href="https://github.com/emacs-lsp/lsp-docker">lsp-docker</a> to get a docker container with the ROS2 libraries installed which can run a LSP server for doom emacs. This way I can get proper LSP support even though I don&rsquo;t have the libraries installed on my computer.
 </p>
 
@@ -103,4 +112,4 @@ Every concievable thing related to ROS2 foxy won&rsquo;t be installed from this.
 Both images will be updated to work with the udemy course. So if you&rsquo;re following that, you might not have to update these dockerfiles and can just pull the ones I&rsquo;ve already built.
 </p>
 </div>
-</div>]]></content><author><name>Rasmus Wallin</name><email>contact@0x57.me</email></author><category term="emacs" /><category term="lsp" /><category term="docker" /><category term="doom" /><category term="ros2" /><category term="ros" /><category term="lsp-docker" /><summary type="html"><![CDATA[How to get lsp-docker running with doom emacs for ROS projects.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://0.0.0.0:4000/example.png" /><media:content medium="image" url="http://0.0.0.0:4000/example.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+</div>

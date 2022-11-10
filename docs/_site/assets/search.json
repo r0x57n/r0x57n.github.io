@@ -1,11 +1,11 @@
 [
   
     {
-      "title"    : "Test post!",
-      "description" : "Test post",
-      "tags"     : "test",
-      "url"      : "/apa-itu-shell/",
-      "date"     : "2022-11-08 13:03:32 +0100"
+      "title"    : "Doom, ROS2 and lsp-docker",
+      "description" : "How to get lsp-docker running with doom emacs for ROS projects.",
+      "tags"     : "emacs, lsp, docker, doom, ros2, ros, lsp-docker",
+      "url"      : "/ros-lsp-and-doom/",
+      "date"     : "2022-11-10 21:00:00 +0100"
     } 
   
 ]

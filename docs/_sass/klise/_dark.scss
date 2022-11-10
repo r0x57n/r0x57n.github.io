@@ -3,12 +3,7 @@ body[data-theme="dark"] {
   background-color: $dark-black;
 
   // Heading
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     color: $dark-white;
   }
 
@@ -19,9 +14,7 @@ body[data-theme="dark"] {
       border-color: $dark-light;
     }
 
-    th,
-    td,
-    tr {
+    th, td, tr {
       border-color: $dark-light;
     }
   }
@@ -31,9 +24,7 @@ body[data-theme="dark"] {
     a {
       color: $dark-text-link-blue;
 
-      &:hover,
-      &:active,
-      &:focus {
+      &:hover, &:active, &:focus {
         color: $dark-text-link-blue-active;
       }
     }
@@ -41,16 +32,19 @@ body[data-theme="dark"] {
     h3 {
       border-color: $dark-light;
     }
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h1, h2, h3, h4, h5, h6 {
       .anchor-head {
         color: $dark-text-link-blue;
       }
     }
+  }
+
+  .page-image {
+  }
+
+  .page-image img {
+    width: 500px;
+    height: 300px;
   }
 
   // Syntax
@@ -78,7 +72,7 @@ body[data-theme="dark"] {
 
     time {
       &::after {
-        background-color: $dark-light;
+        background-color: transparent;
       }
     }
 

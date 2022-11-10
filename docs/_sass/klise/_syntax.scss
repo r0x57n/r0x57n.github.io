@@ -1,36 +1,27 @@
 // Code
 code {
-  font-family: $mono-family;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "calt" 1;
-  font-variant-ligatures: normal;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  font-size: inherit;
+  font-family: "Ubuntu mono", "monospace";
+  font-size: 95%;
+  font-weight: inherit;
+  white-space: pre-line;
+  word-break: keep-all;
 
-  &.highlighter-rouge {
-    padding: 1px 3px;
-    position: relative;
-    top: -1px;
-    background-color: #f6f6f6;
-    border-radius: 2px;
-    border: 1px solid rgba(128,128,128,0.1);
-  }
+  background-color: #1a1b21;
+  border-radius: 3px;
+  padding: 4px;
+  padding-top: 2px;
 }
 
 // Codeblock Theme
 pre.highlight, pre {
-  margin: 0 -27px;
   @include media-query($on-mobile) {
     margin: 0 calc(51% - 51vw);
     padding-left: 20px;
   }
-  border: 1px solid rgba(128,128,128,0.1);
+  margin: 0 -27px;
   background-color: #1a1b21;
-  border-radius: 2px;
-  padding: 10px;
+  border-radius: 4px;
+  padding: 6px;
   display: block;
   overflow-x: auto;
 

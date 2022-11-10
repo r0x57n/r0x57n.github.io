@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://0.0.0.0:4000/apa-itu-shell/</loc>
-<lastmod>2022-11-08T13:03:32+01:00</lastmod>
+<loc>http://0.0.0.0:4000/ros-lsp-and-doom/</loc>
+<lastmod>2022-11-10T21:00:00+01:00</lastmod>
 </url>
 <url>
 <loc>http://0.0.0.0:4000/about/</loc>
