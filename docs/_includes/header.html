@@ -70,10 +70,6 @@
   />
   {% if page.location %}
   <meta property="og:type" content="article" />
-  <meta
-    property="article:publisher"
-    content="https://web.facebook.com/{{ site.author.facebook }}"
-  />
   {% else %}
   <meta property="og:type" content="website" />
   {% endif %}
@@ -101,36 +97,6 @@
   {% endif %}
   <meta property="og:image:width" content="640" />
   <meta property="og:image:height" content="640" />
-  <meta name="twitter:card" content="summary" />
-  <meta
-    name="twitter:title"
-    content="{% if page.title %}{{ page.title | escape }} | {{
-      site.author.twitter
-    }}{% else %}{{ site.title | escape }}{% endif %}"
-  />
-  <meta
-    name="twitter:url"
-    content="{{
-      page.url  | remove: 'index.html' | remove: '.html' | absolute_url
-    }}"
-  />
-  <meta name="twitter:site" content="@{{ site.author.twitter }}" />
-  <meta name="twitter:creator" content="@{{ site.author.twitter }}" />
-  <meta
-    name="twitter:description"
-    content="{{
-      page.description
-        | default: site.description
-        | strip_html
-        | normalize_whitespace
-        | truncate: 200
-        | escape
-    }}"
-  />
-  {% if page.image %}
-  <meta name="twitter:image" content="{{ page.image | absolute_url }}" />
-  {% else %}
-  <meta name="twitter:image" content="{{ site.image | absolute_url }}" />
   {% endif %} {% feed_meta %}
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicons/favicon-512x512.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicons/favicon-192x192.png" />

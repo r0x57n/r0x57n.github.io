@@ -18,10 +18,6 @@ author:
   avatar: /assets/img/avatar.png # change with your own avatar
   pixelfed: 495571208156697125
 
-  facebook: facebook_username # facebook username
-  username: username # general username
-  twitter: twitter_username # twitter username
-
 # URL settings
 url: "https://0x57.me" #
 baseurl:
