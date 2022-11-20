@@ -6,7 +6,8 @@
 ---
 title: Doom, ROS2 and lsp-docker
 date: 2022-11-10 21:00:00 +01:00
-modified:
+modifications:
+- [2022-11-20, "Changed info about :path-mappings."]
 tags: [emacs, lsp, docker, doom, ros2, ros, lsp-docker]
 description: How to get lsp-docker running with doom emacs for ROS projects.
 image: doom_ros2_lsp_docker.png
@@ -51,16 +52,18 @@ We then tell doom to let the package take over when it comes to starting a LSP s
 
    ; Initalize above
    (lsp-docker-init-clients
-    :path-mappings '(("/home/USER/dev/docker-projs" . "/projects"))
+    :path-mappings '(
+                    ("/path/to/a/project/on/host"  . "/path/to/mount/it/in/container")
+                    ("/path/to/another/project/on/host" . "/path/to/mount/it/in/container")
+                     )
     :client-packages lsp-docker-client-packages
     :client-configs lsp-docker-client-configs))
 ...
 #+end_src
 
-We're using custom docker images which is why we specify ~:docker-image-id~. We do this since they need to contain ROS and other related libraries (otherwise LSP wouldn't be able to find them). These images have to be pulled first with ~docker pull 0x57/ccls-ros-lsp~ for the package to be able to start them. See listing [[dockerfile-ccls]] and [[dockerfile-pylsp]] for the images setup. We're naming the containers since it's demanded by the package. ~:path-mappings~ doesn't seem to indicate what folder to mount to the container. Instead it tells the package to try and hijack the starting of the LSP server for all projects beneath this path. It then mounts the project's path to ~/projects~ inside of the container.
+We're using custom docker images which is why we specify ~:docker-image-id~. We do this since they need to contain ROS and other related libraries (otherwise LSP wouldn't be able to find them). These images have to be pulled first with ~docker pull 0x57/ccls-ros-lsp~ for the package to be able to start them. See listing [[dockerfile-ccls]] and [[dockerfile-pylsp]] for the images setup. We're naming the containers since it's demanded by the package. ~:path-mappings~ allows us to tell the package to mount different projects under different paths in the container. With the help of this, and a [[https://clang.llvm.org/docs/JSONCompilationDatabase.html][compile\under{}commands.json]] file in the project root (e.g. ~/path/to/a/project/on/host~), LSP will be able to find project specific files that might be needed. Such as project libraries.
 
-
-With this done you should be able to open a C++/Python file beneath ~/home/USER/dev/docker-projs~ and the package should start a container with the specified LSP server. You can check if the container shows up with ~docker container ps~.
+With this done you should be able to open a C++/Python file beneath any of the given project paths and the package should start a container with the specified LSP server. You can check if the container shows up with ~docker container ps~.
 
 * The dockerfiles
 The image used by the docker container that start LSP for C++ is shown below.

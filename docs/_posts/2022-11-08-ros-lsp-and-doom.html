@@ -1,7 +1,8 @@
 ---
 title: Doom, ROS2 and lsp-docker
 date: 2022-11-10 21:00:00 +01:00
-modified:
+modifications:
+- [2022-11-20, "Changed info about :path-mappings."]
 tags: [emacs, lsp, docker, doom, ros2, ros, lsp-docker]
 description: How to get lsp-docker running with doom emacs for ROS projects.
 image: doom_ros2_lsp_docker.png
@@ -52,7 +53,10 @@ We then tell doom to let the package take over when it comes to starting a LSP s
 
    <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Initalize above</span>
    <span style="color: #c678dd;">(</span><span style="color: #c678dd;">lsp-docker-init-clients</span>
-    <span style="color: #c678dd;">:path-mappings</span> <span style="color: #51afef;">'</span><span style="color: #98be65;">(</span><span style="color: #a9a1e1;">(</span><span style="color: #98be65;">"/home/USER/dev/docker-projs"</span> . <span style="color: #98be65;">"/projects"</span><span style="color: #a9a1e1;">)</span><span style="color: #98be65;">)</span>
+    <span style="color: #c678dd;">:path-mappings</span> <span style="color: #51afef;">'</span><span style="color: #98be65;">(</span>
+                    <span style="color: #a9a1e1;">(</span><span style="color: #98be65;">"/path/to/a/project/on/host"</span>  . <span style="color: #98be65;">"/path/to/mount/it/in/container"</span><span style="color: #a9a1e1;">)</span>
+                    <span style="color: #a9a1e1;">(</span><span style="color: #98be65;">"/path/to/another/project/on/host"</span> . <span style="color: #98be65;">"/path/to/mount/it/in/container"</span><span style="color: #a9a1e1;">)</span>
+                     <span style="color: #98be65;">)</span>
     <span style="color: #c678dd;">:client-packages</span> <span style="color: #dcaeea;">lsp-docker-client-packages</span>
     <span style="color: #c678dd;">:client-configs</span> lsp-docker-client-configs<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 ...
@@ -60,12 +64,11 @@ We then tell doom to let the package take over when it comes to starting a LSP s
 </div>
 
 <p>
-We&rsquo;re using custom docker images which is why we specify <code>:docker-image-id</code>. We do this since they need to contain ROS and other related libraries (otherwise LSP wouldn&rsquo;t be able to find them). These images have to be pulled first with <code>docker pull 0x57/ccls-ros-lsp</code> for the package to be able to start them. See listing <a href="#org22a02dc">3</a> and <a href="#org2a03cc0">4</a> for the images setup. We&rsquo;re naming the containers since it&rsquo;s demanded by the package. <code>:path-mappings</code> doesn&rsquo;t seem to indicate what folder to mount to the container. Instead it tells the package to try and hijack the starting of the LSP server for all projects beneath this path. It then mounts the project&rsquo;s path to <code>/projects</code> inside of the container.
+We&rsquo;re using custom docker images which is why we specify <code>:docker-image-id</code>. We do this since they need to contain ROS and other related libraries (otherwise LSP wouldn&rsquo;t be able to find them). These images have to be pulled first with <code>docker pull 0x57/ccls-ros-lsp</code> for the package to be able to start them. See listing <a href="#org22a02dc">3</a> and <a href="#org2a03cc0">4</a> for the images setup. We&rsquo;re naming the containers since it&rsquo;s demanded by the package. <code>:path-mappings</code> allows us to tell the package to mount different projects under different paths in the container. With the help of this, and a <a href="https://clang.llvm.org/docs/JSONCompilationDatabase.html">compile_commands.json</a> file in the project root (e.g. <code>/path/to/a/project/on/host</code>), LSP will be able to find project specific files that might be needed. Such as project libraries.
 </p>
 
-
 <p>
-With this done you should be able to open a C++/Python file beneath <code>/home/USER/dev/docker-projs</code> and the package should start a container with the specified LSP server. You can check if the container shows up with <code>docker container ps</code>.
+With this done you should be able to open a C++/Python file beneath any of the given project paths and the package should start a container with the specified LSP server. You can check if the container shows up with <code>docker container ps</code>.
 </p>
 </div>
 </div>
